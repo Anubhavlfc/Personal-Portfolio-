@@ -28,11 +28,22 @@ export const skillGroups: SkillGroup[] = [
   {
     id: 'web',
     title: 'Web & Software',
-    items: ['WordPress', 'Front-end development'],
+    items: ['WordPress', 'Front-end development', 'Site architecture'],
   },
   {
     id: 'tools',
     title: 'Tools',
     items: ['Git / GitHub', 'Azure', 'VS Code', 'Excel'],
+  },
+  {
+    id: 'concepts',
+    title: 'Concepts',
+    items: [
+      'Data structures & algorithms',
+      'Statistical machine learning',
+      'Linear algebra',
+      'Software engineering',
+      'Financial analysis',
+    ],
   },
 ]

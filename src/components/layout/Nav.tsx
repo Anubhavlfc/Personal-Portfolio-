@@ -5,19 +5,21 @@ import { useActiveSection } from '@/hooks/useActiveSection'
 import { cn } from '@/lib/utils'
 
 const links = [
-  { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'about', label: 'About' },
+  { id: 'notes', label: 'Notes' },
 ]
 
-const sectionIds = links.map((l) => l.id)
+// Case study and capabilities highlight their neighbors rather than adding nav items.
+const sectionIds = ['projects', 'experience', 'case-study', 'capabilities', 'about', 'notes', 'contact']
+const activeAlias: Record<string, string> = { 'case-study': 'projects', capabilities: 'about' }
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const active = useActiveSection(sectionIds)
+  const rawActive = useActiveSection(sectionIds)
+  const active = rawActive ? (activeAlias[rawActive] ?? rawActive) : null
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -36,21 +38,21 @@ export function Nav() {
   return (
     <header
       className={cn(
-        'fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-[var(--ease-out-soft)]',
-        scrolled
-          ? 'border-b border-border/80 bg-bg/70 backdrop-blur-xl'
-          : 'border-b border-transparent bg-transparent',
+        'fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,padding] duration-500 ease-[var(--ease-out-soft)]',
+        scrolled ? 'border-b border-border/80 bg-bg/75 backdrop-blur-xl' : 'border-b border-transparent',
       )}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-8">
-        <a
-          href="#top"
-          className="-my-2 py-2 text-sm font-semibold tracking-[0.12em] text-ink transition-colors hover:text-accent"
-        >
-          ANUBHAV ADHIKARI
+      <div
+        className={cn(
+          'mx-auto flex max-w-6xl items-center justify-between px-6 transition-[padding] duration-500 ease-[var(--ease-out-soft)] sm:px-8',
+          scrolled ? 'py-3' : 'py-5',
+        )}
+      >
+        <a href="#top" className="-my-2 py-2 text-sm font-semibold tracking-tight text-ink transition-colors hover:text-accent">
+          {profile.name}
         </a>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
           <nav aria-label="Primary" className="flex items-center gap-1">
             {links.map((link) => {
               const isActive = active === link.id
@@ -69,7 +71,7 @@ export function Nav() {
                     <motion.span
                       layoutId="nav-active"
                       transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                      className="absolute inset-x-2 -bottom-px h-px bg-accent"
+                      className="absolute inset-x-3 -bottom-px h-px bg-accent"
                     />
                   )}
                 </a>
@@ -77,12 +79,10 @@ export function Nav() {
             })}
           </nav>
           <a
-            href={profile.resumeUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="ml-3 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-bg transition-all duration-300 ease-[var(--ease-out-soft)] hover:bg-accent-bright hover:shadow-[0_8px_26px_-10px_var(--color-accent)]"
+            href="#contact"
+            className="ml-2 rounded-full border border-border bg-surface/60 px-4 py-2 text-sm font-medium text-ink backdrop-blur-sm transition-[border-color,background-color,color] duration-300 hover:border-accent/50 hover:text-accent"
           >
-            Resume
+            Let's talk
           </a>
         </div>
 
@@ -116,28 +116,38 @@ export function Nav() {
             className="overflow-hidden border-t border-border bg-bg/95 backdrop-blur-xl md:hidden"
           >
             <div className="flex flex-col px-4 py-2">
-              {links.map((link) => (
+              {links.map((link, i) => (
                 <a
                   key={link.id}
                   href={`#${link.id}`}
                   onClick={() => setMenuOpen(false)}
                   className={cn(
-                    'rounded-md px-3 py-3.5 text-base transition-colors',
+                    'flex items-baseline gap-4 rounded-md px-3 py-3.5 text-base transition-colors',
                     active === link.id ? 'text-accent' : 'text-ink-muted hover:bg-surface hover:text-ink',
                   )}
                 >
+                  <span className="label">{String(i + 1).padStart(2, '0')}</span>
                   {link.label}
                 </a>
               ))}
-              <a
-                href={profile.resumeUrl}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => setMenuOpen(false)}
-                className="my-3 rounded-full bg-accent px-4 py-3 text-center text-base font-semibold text-bg"
-              >
-                Resume
-              </a>
+              <div className="my-3 flex flex-col gap-2">
+                <a
+                  href="#contact"
+                  onClick={() => setMenuOpen(false)}
+                  className="rounded-full bg-accent px-4 py-3 text-center text-base font-semibold text-bg"
+                >
+                  Let's talk
+                </a>
+                <a
+                  href={profile.resumeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setMenuOpen(false)}
+                  className="rounded-full border border-border px-4 py-3 text-center text-base font-medium text-ink"
+                >
+                  Résumé
+                </a>
+              </div>
             </div>
           </motion.nav>
         )}

@@ -1,35 +1,104 @@
-import { profile } from '@/content/profile'
+import { profile, isPlaceholderLink } from '@/content/profile'
 import { education } from '@/content/education'
+import { leadership, financeSpotlight } from '@/content/leadership'
 import { SectionShell } from '@/components/ui/SectionShell'
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 
 const facts = [
-  { label: 'Studying', value: 'B.S. Computer Science · B.A. Finance' },
+  { label: 'Studying', value: education.degrees.join(' · ') },
+  { label: 'School', value: education.school },
   { label: 'Graduating', value: education.graduation.replace('Expected ', '') },
+  { label: 'Honors', value: education.honors.join(' · ') },
   { label: 'Based in', value: profile.location },
-  { label: 'Focus', value: 'Software engineering, data engineering, AI applications' },
 ]
+
+const roles = [
+  { role: financeSpotlight.role, org: financeSpotlight.org },
+  ...leadership.map((l) => ({ role: l.role, org: l.org })),
+]
+
+function Portrait() {
+  const hasPhoto = !isPlaceholderLink(profile.portraitUrl)
+  const initials = profile.name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+
+  return (
+    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-surface">
+      {hasPhoto ? (
+        <img
+          src={profile.portraitUrl}
+          alt={`Portrait of ${profile.name}`}
+          loading="lazy"
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        // Designed stand-in: reads as a deliberate monogram, not a missing image.
+        <div
+          aria-hidden="true"
+          className="flex h-full w-full items-end bg-[radial-gradient(60%_50%_at_30%_20%,#d4a65722,transparent_70%),linear-gradient(160deg,#1b1a17,#0f0e0c)] p-6"
+        >
+          <span className="font-mono text-7xl font-medium tracking-tighter text-ink/90 sm:text-8xl">{initials}</span>
+        </div>
+      )}
+      <span className="label absolute right-4 top-4 rounded-md border border-border bg-bg/70 px-2 py-1 backdrop-blur-sm">
+        {profile.location}
+      </span>
+    </div>
+  )
+}
 
 export function About() {
   return (
-    <SectionShell id="about" label="About" eyebrow="About" tone="raised">
-      <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
-        <RevealOnScroll>
-          <p className="text-lg leading-relaxed text-ink-muted sm:text-xl sm:leading-relaxed">{profile.about}</p>
+    <SectionShell id="about" label="About" number="05" eyebrow="About" title="A little more about me." tone="raised">
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <RevealOnScroll className="mx-auto w-full max-w-sm lg:col-span-4 lg:max-w-none">
+          <Portrait />
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.1}>
-          <dl className="divide-y divide-border border-y border-border">
-            {facts.map((fact) => (
-              <div key={fact.label} className="flex flex-col gap-1 py-4 sm:flex-row sm:gap-6">
-                <dt className="w-32 shrink-0 text-xs font-medium uppercase tracking-[0.14em] text-ink-faint">
-                  {fact.label}
-                </dt>
-                <dd className="text-sm leading-relaxed text-ink">{fact.value}</dd>
+        <div className="flex flex-col gap-10 lg:col-span-8">
+          <RevealOnScroll delay={0.05}>
+            <p className="text-lg leading-relaxed text-ink sm:text-xl sm:leading-relaxed">{profile.about}</p>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-muted">{profile.outsideOfWork}</p>
+          </RevealOnScroll>
+
+          <RevealOnScroll delay={0.1}>
+            <div className="grid gap-10 sm:grid-cols-2">
+              <dl className="divide-y divide-border border-y border-border">
+                {facts.map((fact) => (
+                  <div key={fact.label} className="flex gap-6 py-3.5">
+                    <dt className="label w-24 shrink-0 pt-0.5">{fact.label}</dt>
+                    <dd className="text-sm leading-relaxed text-ink">{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <div>
+                <p className="label mb-4">Beyond coursework</p>
+                <ul className="divide-y divide-border border-y border-border">
+                  {roles.map((r) => (
+                    <li key={r.role} className="py-3.5">
+                      <p className="text-sm font-medium text-ink">{r.role}</p>
+                      <p className="mt-0.5 text-xs text-ink-faint">{r.org}</p>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </dl>
-        </RevealOnScroll>
+            </div>
+          </RevealOnScroll>
+
+          <RevealOnScroll delay={0.15}>
+            <p className="label mb-3">Selected coursework</p>
+            <ul className="flex flex-wrap gap-x-5 gap-y-1.5">
+              {education.coursework.map((c) => (
+                <li key={c} className="font-mono text-sm text-ink-muted">
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </RevealOnScroll>
+        </div>
       </div>
     </SectionShell>
   )

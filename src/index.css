@@ -1,43 +1,37 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #08080a;
-  --color-bg-raised: #0c0c0e;
-  --color-surface: #121215;
-  --color-surface-2: #17171b;
-  --color-border: #232327;
-  --color-border-soft: #1b1b1f;
-  --color-ink: #f4f2ee;
-  --color-ink-muted: #9d9a94;
-  --color-ink-faint: #6e6c67;
+  /* Warm charcoal rather than pure black — pairs with the amber accent and
+     keeps large dark areas from reading as flat. */
+  --color-bg: #0b0a09;
+  --color-bg-raised: #100f0d;
+  --color-surface: #151412;
+  --color-surface-2: #1b1a17;
+  --color-border: #272521;
+  --color-border-soft: #1e1c19;
+  --color-ink: #f3f0ea;
+  --color-ink-muted: #a09c94;
+  --color-ink-faint: #6f6b63;
   --color-accent: #d4a657;
-  --color-accent-soft: #d4a65726;
+  --color-accent-soft: #d4a65724;
   --color-accent-bright: #e8c179;
 
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas,
+    "Liberation Mono", monospace;
 
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
-
-  @keyframes drift {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-6px);
-    }
-  }
 
   @keyframes aurora {
     0%,
     100% {
       transform: translate3d(0, 0, 0) scale(1);
-      opacity: 0.5;
+      opacity: 0.55;
     }
     50% {
       transform: translate3d(3%, -2%, 0) scale(1.08);
-      opacity: 0.72;
+      opacity: 0.75;
     }
   }
 }
@@ -62,8 +56,8 @@
     letter-spacing: -0.011em;
   }
 
-  /* Fixed backdrop: a fine grid plus two slow, heavily blurred pools of
-     light. Fixed + transform-isolated so scrolling never repaints it. */
+  /* Fixed backdrop: a fine grid and two slow pools of light. Fixed so
+     scrolling never repaints it. */
   body::before {
     content: "";
     position: fixed;
@@ -71,10 +65,10 @@
     z-index: -2;
     pointer-events: none;
     background-image:
-      linear-gradient(to right, #ffffff07 1px, transparent 1px),
-      linear-gradient(to bottom, #ffffff07 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 20%, transparent 75%);
+      linear-gradient(to right, #ffffff06 1px, transparent 1px),
+      linear-gradient(to bottom, #ffffff06 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 15%, transparent 70%);
   }
 
   body::after {
@@ -84,10 +78,10 @@
     z-index: -3;
     pointer-events: none;
     background:
-      radial-gradient(38rem 28rem at 72% 8%, #d4a6570e, transparent 70%),
-      radial-gradient(34rem 26rem at 12% 42%, #7c8ea80a, transparent 72%);
+      radial-gradient(40rem 30rem at 70% 6%, #d4a6570f, transparent 70%),
+      radial-gradient(36rem 28rem at 10% 45%, #8a7f6a0a, transparent 72%);
     will-change: transform, opacity;
-    animation: aurora 26s ease-in-out infinite;
+    animation: aurora 28s ease-in-out infinite;
   }
 
   ::selection {
@@ -104,7 +98,8 @@
   h1,
   h2,
   h3 {
-    letter-spacing: -0.022em;
+    letter-spacing: -0.024em;
+    text-wrap: balance;
   }
 }
 
@@ -121,21 +116,27 @@
     border-width: 0;
   }
 
-  .text-balance {
-    text-wrap: balance;
+  .font-mono {
+    font-family: var(--font-mono);
+    letter-spacing: 0;
   }
 
-  .grid-fade-mask {
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 40%, transparent 100%);
+  /* Technical label: small mono caps with generous tracking. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
   }
 
   /* Raised panels sit a half-step above the page with a top edge catch-light. */
   .panel {
     position: relative;
-    background-image: linear-gradient(180deg, #ffffff06, transparent 42%);
+    background-image: linear-gradient(180deg, #ffffff06, transparent 40%);
     box-shadow:
       0 1px 0 0 #ffffff0a inset,
-      0 18px 40px -24px #000000cc;
+      0 20px 44px -26px #000000d0;
   }
 
   /* Cursor-tracked sheen. --mx/--my are set by useSpotlight. */
@@ -148,7 +149,7 @@
     opacity: 0;
     transition: opacity 0.4s var(--ease-out-soft);
     background: radial-gradient(
-      26rem circle at var(--mx, 50%) var(--my, 50%),
+      28rem circle at var(--mx, 50%) var(--my, 50%),
       #d4a65714,
       transparent 68%
     );
@@ -159,8 +160,8 @@
     opacity: 1;
   }
 
-  .section-tint {
-    background: linear-gradient(180deg, transparent, #ffffff04 45%, transparent);
+  .hairline {
+    background-image: linear-gradient(90deg, transparent, var(--color-border) 20%, var(--color-border) 80%, transparent);
   }
 }
 

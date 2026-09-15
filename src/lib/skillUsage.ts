@@ -1,8 +1,9 @@
 import { experience } from '@/content/experience'
 import { projects } from '@/content/projects'
+import { education } from '@/content/education'
 
 export type SkillSource = {
-  kind: 'experience' | 'project'
+  kind: 'experience' | 'project' | 'coursework'
   title: string
   context: string
 }
@@ -10,9 +11,9 @@ export type SkillSource = {
 const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '')
 
 /**
- * Additional links the stack arrays don't capture but the written content
- * already states outright. Nothing here is a claim the site doesn't make
- * elsewhere — each maps to a highlight or contribution line.
+ * Links the stack arrays don't capture but the written content states
+ * outright. Each maps to a highlight, contribution line, or course title —
+ * nothing here is a claim the site doesn't already make.
  */
 const fromProse: Record<string, string[]> = {
   'Data transformation': ['oppenheimer'],
@@ -20,12 +21,17 @@ const fromProse: Record<string, string[]> = {
   'Model training & evaluation': ['recruitment-analytics'],
   'AI application development': ['gradtrack-ai'],
   'Git / GitHub': ['gradtrack-ai'],
+  'Data structures & algorithms': ['course:Data Structures & Algorithms'],
+  'Statistical machine learning': ['course:Statistical Machine Learning', 'recruitment-analytics'],
+  'Linear algebra': ['course:Linear Algebra'],
+  'Software engineering': ['course:Senior Software Engineering & AI', 'coi-it'],
+  'Financial analysis': ['course:Intermediate Accounting', 'course:Financial Problems'],
 }
 
 const sourcesById = new Map<string, SkillSource>()
 const byNormalizedSkill = new Map<string, Set<string>>()
 
-const register = (id: string, source: SkillSource, stack: string[]) => {
+const register = (id: string, source: SkillSource, stack: string[] = []) => {
   sourcesById.set(id, source)
   for (const item of stack) {
     const key = normalize(item)
@@ -40,6 +46,10 @@ for (const entry of experience) {
 
 for (const project of projects) {
   register(project.id, { kind: 'project', title: project.title, context: 'Project' }, project.stack)
+}
+
+for (const course of education.coursework) {
+  register(`course:${course}`, { kind: 'coursework', title: course, context: `Coursework · ${education.school}` })
 }
 
 export function getSkillSources(skill: string): SkillSource[] {

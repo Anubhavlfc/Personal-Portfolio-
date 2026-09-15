@@ -4,14 +4,17 @@ import { Footer } from '@/components/layout/Footer'
 import { CursorGlow } from '@/components/ui/CursorGlow'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { Hero } from '@/components/sections/Hero'
-import { About } from '@/components/sections/About'
+import { FeaturedProjects } from '@/components/sections/FeaturedProjects'
+import { Proof } from '@/components/sections/Proof'
 import { Experience } from '@/components/sections/Experience'
-import { Projects } from '@/components/sections/Projects'
-import { Skills } from '@/components/sections/Skills'
-import { Education } from '@/components/sections/Education'
-import { Leadership } from '@/components/sections/Leadership'
+import { CaseStudy } from '@/components/sections/CaseStudy'
+import { Capabilities } from '@/components/sections/Capabilities'
+import { About } from '@/components/sections/About'
+import { Notes } from '@/components/sections/Notes'
 import { Contact } from '@/components/sections/Contact'
 
+// Order is the story: who → what he built → proof → where → how he thinks →
+// what he works with → who he is → what he's thinking about → reach out.
 function App() {
   return (
     <>
@@ -21,12 +24,13 @@ function App() {
       <Nav />
       <main id="main">
         <Hero />
-        <About />
+        <FeaturedProjects />
+        <Proof />
         <Experience />
-        <Projects />
-        <Skills />
-        <Education />
-        <Leadership />
+        <CaseStudy />
+        <Capabilities />
+        <About />
+        <Notes />
         <Contact />
       </main>
       <Footer />

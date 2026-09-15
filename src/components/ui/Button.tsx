@@ -1,20 +1,21 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
+import { useMagnetic } from '@/hooks/useMagnetic'
 
 type Variant = 'primary' | 'secondary' | 'ghost'
 
 const base =
-  'group/btn inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-[background-color,border-color,color,box-shadow,transform] duration-300 ease-[var(--ease-out-soft)] active:scale-[0.985] focus-visible:outline-2 focus-visible:outline-accent'
+  'group/btn inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-[background-color,border-color,color,box-shadow] duration-300 ease-[var(--ease-out-soft)] focus-visible:outline-2 focus-visible:outline-accent'
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-accent text-bg shadow-[0_0_0_0_transparent] hover:bg-accent-bright hover:shadow-[0_8px_28px_-10px_var(--color-accent)]',
+    'bg-accent text-bg hover:bg-accent-bright hover:shadow-[0_10px_30px_-10px_var(--color-accent)]',
   secondary:
-    'border border-border bg-surface/70 text-ink backdrop-blur-sm hover:border-accent/45 hover:bg-surface-2/80 hover:shadow-[0_8px_26px_-18px_#000]',
+    'border border-border bg-surface/70 text-ink backdrop-blur-sm hover:border-accent/45 hover:bg-surface-2/80',
   ghost: 'text-ink-muted hover:text-ink',
 }
 
-/** Nudges to the right on hover; skipped under reduced motion via the media query in index.css. */
+/** Nudges right on hover; the reduced-motion rule in index.css disables it. */
 export function ButtonArrow() {
   return (
     <span
@@ -41,12 +42,14 @@ export function Button({ variant = 'primary', className, children, ...props }: B
 
 type LinkButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   variant?: Variant
+  magnetic?: boolean
   children: ReactNode
 }
 
-export function LinkButton({ variant = 'primary', className, children, ...props }: LinkButtonProps) {
+export function LinkButton({ variant = 'primary', magnetic = false, className, children, ...props }: LinkButtonProps) {
+  const ref = useMagnetic<HTMLAnchorElement>(magnetic ? 4 : 0)
   return (
-    <a className={cn(base, variants[variant], className)} {...props}>
+    <a ref={magnetic ? ref : undefined} className={cn(base, variants[variant], className)} {...props}>
       {children}
     </a>
   )
