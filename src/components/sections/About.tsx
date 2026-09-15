@@ -7,7 +7,7 @@ const facts = [
   { label: 'Studying', value: 'B.S. Computer Science · B.A. Finance' },
   { label: 'Graduating', value: education.graduation.replace('Expected ', '') },
   { label: 'Based in', value: profile.location },
-  { label: 'Looking for', value: 'Software & data engineering internships' },
+  { label: 'Focus', value: 'Software engineering, data engineering, AI applications' },
 ]
 
 export function About() {

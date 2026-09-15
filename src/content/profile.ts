@@ -13,7 +13,7 @@ export const profile = {
   resumeUrl: '/resume.pdf',
 
   about:
-    'I’m a Computer Science and Finance student at The College of Idaho, graduating in May 2027. Most of my work sits between software and data — building ETL pipelines on a data engineering team, shipping front-end and architecture changes on my college’s WordPress infrastructure, and writing AI-assisted tools on my own time. The finance half of my degree is what got me interested in systems where the data actually drives a decision. I’m looking for software engineering and data engineering internships.',
+    'I’m a Computer Science and Finance student at The College of Idaho, graduating in May 2027. Most of my work sits between software and data — building ETL pipelines on a data engineering team, shipping front-end and architecture changes on my college’s WordPress infrastructure, and writing AI-assisted tools on my own time. The finance half of my degree is what got me interested in systems where data drives a decision, and that’s still the work I like most: taking messy inputs and getting them into a shape someone can actually use.',
 } as const
 
 export const isPlaceholderLink = (url: string) => url.trim() === ''

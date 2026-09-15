@@ -53,7 +53,7 @@ export function Contact() {
       label="Contact"
       eyebrow="Contact"
       title="Get in touch."
-      intro="I'm looking for software engineering and data engineering internships. The fastest way to reach me is email."
+      intro="The fastest way to reach me is email — happy to talk about anything I've built here."
     >
       <RevealOnScroll>
         <ul className="divide-y divide-border border-y border-border">
