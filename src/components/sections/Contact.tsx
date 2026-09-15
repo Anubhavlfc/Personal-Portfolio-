@@ -8,7 +8,6 @@ type Method = {
   value: string
   href: string
   icon: string | null
-  download?: boolean
   external?: boolean
 }
 
@@ -41,10 +40,10 @@ export function Contact() {
       : null,
     {
       label: 'Resume',
-      value: 'Download PDF',
+      value: 'View PDF',
       href: profile.resumeUrl,
       icon: null,
-      download: true,
+      external: true,
     },
   ].filter(Boolean) as Method[]
 
@@ -62,7 +61,6 @@ export function Contact() {
             <li key={method.label}>
               <a
                 href={method.href}
-                download={method.download || undefined}
                 target={method.external ? '_blank' : undefined}
                 rel={method.external ? 'noreferrer' : undefined}
                 className="group flex flex-col gap-1 py-5 transition-colors sm:flex-row sm:items-center sm:gap-6"

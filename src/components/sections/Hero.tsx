@@ -42,7 +42,7 @@ export function Hero() {
             <LinkButton href="#projects" variant="primary">
               View Projects
             </LinkButton>
-            <LinkButton href={profile.resumeUrl} download variant="secondary">
+            <LinkButton href={profile.resumeUrl} target="_blank" rel="noreferrer" variant="secondary">
               Resume
             </LinkButton>
             <div className="flex items-center gap-2 sm:ml-2">

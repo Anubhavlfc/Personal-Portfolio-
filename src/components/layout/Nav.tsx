@@ -58,7 +58,8 @@ export function Nav() {
           </nav>
           <a
             href={profile.resumeUrl}
-            download
+            target="_blank"
+            rel="noreferrer"
             className="ml-3 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-bg transition-colors hover:bg-accent-bright"
           >
             Resume
@@ -107,7 +108,8 @@ export function Nav() {
               ))}
               <a
                 href={profile.resumeUrl}
-                download
+                target="_blank"
+                rel="noreferrer"
                 onClick={() => setMenuOpen(false)}
                 className="my-3 rounded-full bg-accent px-4 py-3 text-center text-base font-semibold text-bg"
               >
