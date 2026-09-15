@@ -33,6 +33,7 @@ export function Leadership() {
     <SectionShell
       id="leadership"
       label="Leadership"
+      tone="raised"
       eyebrow="Leadership"
       title="Responsibility outside of coursework."
     >

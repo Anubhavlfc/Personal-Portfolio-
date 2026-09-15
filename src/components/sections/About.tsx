@@ -12,7 +12,7 @@ const facts = [
 
 export function About() {
   return (
-    <SectionShell id="about" label="About" eyebrow="About">
+    <SectionShell id="about" label="About" eyebrow="About" tone="raised">
       <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
         <RevealOnScroll>
           <p className="text-lg leading-relaxed text-ink-muted sm:text-xl sm:leading-relaxed">{profile.about}</p>

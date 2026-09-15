@@ -1,14 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #0a0a0b;
-  --color-surface: #131315;
-  --color-surface-2: #1a1a1c;
-  --color-border: #232325;
-  --color-border-soft: #1c1c1e;
-  --color-ink: #f2f0ea;
-  --color-ink-muted: #9a9790;
-  --color-ink-faint: #6b6963;
+  --color-bg: #08080a;
+  --color-bg-raised: #0c0c0e;
+  --color-surface: #121215;
+  --color-surface-2: #17171b;
+  --color-border: #232327;
+  --color-border-soft: #1b1b1f;
+  --color-ink: #f4f2ee;
+  --color-ink-muted: #9d9a94;
+  --color-ink-faint: #6e6c67;
   --color-accent: #d4a657;
   --color-accent-soft: #d4a65726;
   --color-accent-bright: #e8c179;
@@ -16,8 +17,7 @@
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
 
-  --animate-drift: drift 14s ease-in-out infinite;
-  --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 
   @keyframes drift {
     0%,
@@ -29,14 +29,15 @@
     }
   }
 
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
+  @keyframes aurora {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.5;
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    50% {
+      transform: translate3d(3%, -2%, 0) scale(1.08);
+      opacity: 0.72;
     }
   }
 }
@@ -52,11 +53,41 @@
   }
 
   body {
+    position: relative;
     background-color: var(--color-bg);
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    letter-spacing: -0.011em;
+  }
+
+  /* Fixed backdrop: a fine grid plus two slow, heavily blurred pools of
+     light. Fixed + transform-isolated so scrolling never repaints it. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, #ffffff07 1px, transparent 1px),
+      linear-gradient(to bottom, #ffffff07 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 20%, transparent 75%);
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: -3;
+    pointer-events: none;
+    background:
+      radial-gradient(38rem 28rem at 72% 8%, #d4a6570e, transparent 70%),
+      radial-gradient(34rem 26rem at 12% 42%, #7c8ea80a, transparent 72%);
+    will-change: transform, opacity;
+    animation: aurora 26s ease-in-out infinite;
   }
 
   ::selection {
@@ -67,7 +98,13 @@
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.022em;
   }
 }
 
@@ -89,11 +126,41 @@
   }
 
   .grid-fade-mask {
-    mask-image: radial-gradient(
-      ellipse 80% 60% at 50% 40%,
-      black 40%,
-      transparent 100%
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 40%, transparent 100%);
+  }
+
+  /* Raised panels sit a half-step above the page with a top edge catch-light. */
+  .panel {
+    position: relative;
+    background-image: linear-gradient(180deg, #ffffff06, transparent 42%);
+    box-shadow:
+      0 1px 0 0 #ffffff0a inset,
+      0 18px 40px -24px #000000cc;
+  }
+
+  /* Cursor-tracked sheen. --mx/--my are set by useSpotlight. */
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-out-soft);
+    background: radial-gradient(
+      26rem circle at var(--mx, 50%) var(--my, 50%),
+      #d4a65714,
+      transparent 68%
     );
+  }
+
+  .spotlight:hover::before,
+  .spotlight:focus-within::before {
+    opacity: 1;
+  }
+
+  .section-tint {
+    background: linear-gradient(180deg, transparent, #ffffff04 45%, transparent);
   }
 }
 

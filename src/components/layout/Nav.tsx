@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { profile } from '@/content/profile'
+import { useActiveSection } from '@/hooks/useActiveSection'
 import { cn } from '@/lib/utils'
 
 const links = [
-  { href: '#about', label: 'About' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#contact', label: 'Contact' },
+  { id: 'about', label: 'About' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'contact', label: 'Contact' },
 ]
+
+const sectionIds = links.map((l) => l.id)
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const active = useActiveSection(sectionIds)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -32,8 +36,10 @@ export function Nav() {
   return (
     <header
       className={cn(
-        'fixed inset-x-0 top-0 z-50 transition-colors duration-300',
-        scrolled ? 'border-b border-border bg-bg/85 backdrop-blur-md' : 'border-b border-transparent',
+        'fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-[var(--ease-out-soft)]',
+        scrolled
+          ? 'border-b border-border/80 bg-bg/70 backdrop-blur-xl'
+          : 'border-b border-transparent bg-transparent',
       )}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-8">
@@ -46,21 +52,35 @@ export function Nav() {
 
         <div className="hidden items-center gap-1 md:flex">
           <nav aria-label="Primary" className="flex items-center gap-1">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="rounded-md px-3 py-2 text-sm text-ink-muted transition-colors hover:text-ink"
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) => {
+              const isActive = active === link.id
+              return (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={cn(
+                    'relative rounded-md px-3 py-2 text-sm transition-colors duration-300',
+                    isActive ? 'text-ink' : 'text-ink-muted hover:text-ink',
+                  )}
+                >
+                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                      className="absolute inset-x-2 -bottom-px h-px bg-accent"
+                    />
+                  )}
+                </a>
+              )
+            })}
           </nav>
           <a
             href={profile.resumeUrl}
             target="_blank"
             rel="noreferrer"
-            className="ml-3 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-bg transition-colors hover:bg-accent-bright"
+            className="ml-3 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-bg transition-all duration-300 ease-[var(--ease-out-soft)] hover:bg-accent-bright hover:shadow-[0_8px_26px_-10px_var(--color-accent)]"
           >
             Resume
           </a>
@@ -68,7 +88,7 @@ export function Nav() {
 
         <button
           type="button"
-          className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-ink md:hidden"
+          className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-ink transition-colors hover:border-accent/50 md:hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -92,16 +112,19 @@ export function Nav() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.22, ease: 'easeOut' }}
-            className="overflow-hidden border-t border-border bg-bg/95 backdrop-blur-md md:hidden"
+            transition={{ duration: 0.24, ease: 'easeOut' }}
+            className="overflow-hidden border-t border-border bg-bg/95 backdrop-blur-xl md:hidden"
           >
             <div className="flex flex-col px-4 py-2">
               {links.map((link) => (
                 <a
-                  key={link.href}
-                  href={link.href}
+                  key={link.id}
+                  href={`#${link.id}`}
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-md px-3 py-3.5 text-base text-ink-muted transition-colors hover:bg-surface hover:text-ink"
+                  className={cn(
+                    'rounded-md px-3 py-3.5 text-base transition-colors',
+                    active === link.id ? 'text-accent' : 'text-ink-muted hover:bg-surface hover:text-ink',
+                  )}
                 >
                   {link.label}
                 </a>

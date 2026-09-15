@@ -5,6 +5,7 @@ import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 import { Badge } from '@/components/ui/Badge'
 import { FlowDiagram } from '@/components/ui/FlowDiagram'
 import { iconPaths } from '@/lib/icons'
+import { useSpotlight } from '@/hooks/useSpotlight'
 
 function ProjectLinks({ project }: { project: Project }) {
   const links = [
@@ -26,14 +27,20 @@ function ProjectLinks({ project }: { project: Project }) {
           href={link.href}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-accent"
+          className="group/link inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-accent"
         >
           {link.icon && (
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d={link.icon} />
             </svg>
           )}
-          {link.label} <span aria-hidden="true">→</span>
+          {link.label}
+          <span
+            aria-hidden="true"
+            className="inline-block transition-transform duration-300 ease-[var(--ease-out-soft)] group-hover/link:translate-x-1"
+          >
+            →
+          </span>
         </a>
       ))}
     </div>
@@ -41,10 +48,15 @@ function ProjectLinks({ project }: { project: Project }) {
 }
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const spotlightRef = useSpotlight<HTMLElement>()
+
   return (
-    <RevealOnScroll>
-      <article className="overflow-hidden rounded-2xl border border-border bg-surface">
-        <div className="p-7 sm:p-10">
+    <RevealOnScroll delay={index * 0.08} intensity="strong">
+      <article
+        ref={spotlightRef}
+        className="spotlight panel group/card relative overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-500 ease-[var(--ease-out-soft)] hover:border-accent/30 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_28px_60px_-32px_#000]"
+      >
+        <div className="relative p-7 sm:p-10">
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
             <span className="text-xs font-medium tabular-nums text-ink-faint">
               {String(index + 1).padStart(2, '0')}
@@ -69,7 +81,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             ))}
           </ul>
 
-          <div className="mt-7 flex flex-wrap gap-2">
+          <div className="mt-7 flex flex-wrap gap-2 transition-opacity duration-500 [&>*]:transition-colors [&>*]:duration-500 group-hover/card:[&>*]:border-accent/30 group-hover/card:[&>*]:text-ink">
             {project.stack.map((s) => (
               <Badge key={s}>{s}</Badge>
             ))}
@@ -78,7 +90,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <ProjectLinks project={project} />
         </div>
 
-        <div className="border-t border-border bg-bg/40 p-7 sm:p-10">
+        <div className="relative border-t border-border bg-bg/40 p-7 sm:p-10">
           <p className="mb-6 text-xs font-medium uppercase tracking-[0.14em] text-ink-faint">
             {project.diagramLabel} — select a stage
           </p>

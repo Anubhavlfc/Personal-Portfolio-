@@ -51,6 +51,7 @@ export function Contact() {
     <SectionShell
       id="contact"
       label="Contact"
+      tone="glow"
       eyebrow="Contact"
       title="Get in touch."
       intro="The fastest way to reach me is email — happy to talk about anything I've built here."
