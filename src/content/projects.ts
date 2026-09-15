@@ -1,89 +1,71 @@
-export type ArchitectureStage = {
+export type DiagramStage = {
   label: string
   detail: string
 }
 
-export type FlagshipProject = {
-  kind: 'flagship'
+export type Project = {
   id: string
   title: string
-  tagline: string
-  story: string
-  stack: string[]
-  highlights: string[]
-  architecture: ArchitectureStage[]
-}
-
-export type CaseStudyProject = {
-  kind: 'case-study'
-  id: string
-  title: string
-  tagline: string
-  problem: string
-  pipeline: ArchitectureStage[]
+  kicker: string
+  summary: string
+  contribution: string
   highlights: string[]
   stack: string[]
-  outcome: string
+  diagramLabel: string
+  diagram: DiagramStage[]
+  githubUrl?: string
+  demoUrl?: string
 }
-
-export type PlaceholderProject = {
-  kind: 'placeholder'
-  id: string
-}
-
-export type Project = FlagshipProject | CaseStudyProject | PlaceholderProject
 
 export const projects: Project[] = [
   {
-    kind: 'flagship',
     id: 'gradtrack-ai',
     title: 'GradTrack AI',
-    tagline: 'Graduate Application Tracker',
-    story:
-      'A full-stack AI application built to help students manage graduate school applications — reading email for status updates, parsing application state, and surfacing what needs attention before a deadline does.',
-    stack: ['Python', 'MCP', 'LLM Integration', 'Email API'],
+    kicker: 'AI application · Python, MCP',
+    summary:
+      'Graduate school applications are scattered across email threads, portals, and deadlines that are easy to miss. GradTrack AI pulls that into one place an assistant can actually reason about.',
+    contribution:
+      'Built the MCP tool layer the assistant calls — 10 tools covering status parsing, deadline tracking, program comparison, and document storage — plus the email integration that keeps application state current. Developed in sprints with code review on a shared GitHub repo.',
     highlights: [
-      'Email integration with automatic application status updates',
-      '10 custom MCP tools exposed to the AI assistant',
-      'Application status parsing across inconsistent source formats',
-      'Deadline alerts and program comparison',
-      'Document management with persistent memory across sessions',
-      'Built with GitHub collaboration, sprint-based development, and code review',
+      'Email integration that updates application status automatically',
+      'Status parsing across inconsistent email and portal formats',
+      'Deadline alerts and side-by-side program comparison',
+      'Persistent memory so context carries across sessions',
     ],
-    architecture: [
-      { label: 'User', detail: 'Asks a question or requests an update on their applications.' },
-      { label: 'AI Assistant', detail: 'Interprets the request and decides which tools it needs.' },
-      { label: 'MCP Tools', detail: '10 purpose-built tools for reading, parsing, and updating application state.' },
-      { label: 'Application Data', detail: 'Persistent, structured record of every program and its status.' },
-      { label: 'Email / Documents', detail: 'Source of truth pulled in via the email API and stored documents.' },
-      { label: 'Personalized Recommendations', detail: 'Deadline alerts and program comparisons surfaced back to the user.' },
+    stack: ['Python', 'MCP', 'LLM Integration', 'Email API'],
+    diagramLabel: 'How it works',
+    diagram: [
+      { label: 'User', detail: 'Asks about an application or requests an update.' },
+      { label: 'AI Assistant', detail: 'Interprets the request and selects the tools it needs.' },
+      { label: 'MCP Tools', detail: '10 tools for reading, parsing, and updating application state.' },
+      { label: 'Application Data', detail: 'Structured record of every program and its current status.' },
+      { label: 'Email / Documents', detail: 'Source data pulled in through the email API and stored files.' },
+      { label: 'Recommendations', detail: 'Deadline alerts and program comparisons returned to the user.' },
     ],
   },
   {
-    kind: 'case-study',
     id: 'recruitment-analytics',
     title: 'College Recruitment Analytics',
-    tagline: 'Regional enrollment analysis',
-    problem: 'Understanding which geographic regions produce the most enrolled students.',
-    pipeline: [
-      { label: 'Raw Data', detail: 'Enrollment records across domestic and international applicants.' },
-      { label: 'Data Cleaning', detail: 'Missing values, type mismatches, duplicate records, inconsistent international student data.' },
-      { label: 'Exploratory Analysis', detail: 'Regional distributions and enrollment patterns.' },
-      { label: 'Machine Learning', detail: 'Classification modeling over cleaned regional data.' },
-      { label: 'Visualization', detail: 'Regional analysis surfaced through data visualization.' },
-      { label: 'Recruitment Insight', detail: 'Findings translated into an actual organizational decision.' },
-    ],
+    kicker: 'Data science · R, classification modeling',
+    summary:
+      'The admissions question was simple to ask and hard to answer: which geographic regions actually produce enrolled students, not just applicants?',
+    contribution:
+      'Cleaned a messy enrollment dataset — missing values, type mismatches, duplicate records, and inconsistent international student entries — then built classification models over the result and turned the regional findings into a recommendation the college could act on.',
     highlights: [
-      'Handled missing values, type mismatches, and duplicate records',
+      'Resolved missing values, type mismatches, and duplicate records',
       'Reconciled inconsistent international student data',
-      'Built classification models for regional analysis',
-      'Turned analysis into a business decision, not just a report',
+      'Built classification models for regional enrollment analysis',
+      'Translated the analysis into a recruitment recommendation',
     ],
     stack: ['R', 'tidyverse', 'ggplot2', 'caret', 'pandas'],
-    outcome: 'Connected technical analysis directly to a recruitment decision.',
-  },
-  {
-    kind: 'placeholder',
-    id: 'project-03',
+    diagramLabel: 'Analysis pipeline',
+    diagram: [
+      { label: 'Raw Data', detail: 'Enrollment records across domestic and international applicants.' },
+      { label: 'Cleaning', detail: 'Missing values, type mismatches, duplicates, inconsistent entries.' },
+      { label: 'Exploration', detail: 'Regional distributions and enrollment patterns.' },
+      { label: 'Modeling', detail: 'Classification models over the cleaned regional data.' },
+      { label: 'Visualization', detail: 'Regional results rendered for a non-technical audience.' },
+      { label: 'Recommendation', detail: 'Findings translated into a recruitment decision.' },
+    ],
   },
 ]

@@ -1,127 +1,89 @@
-import { projects, type CaseStudyProject, type FlagshipProject } from '@/content/projects'
+import { projects, type Project } from '@/content/projects'
+import { isPlaceholderLink } from '@/content/profile'
 import { SectionShell } from '@/components/ui/SectionShell'
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 import { Badge } from '@/components/ui/Badge'
 import { FlowDiagram } from '@/components/ui/FlowDiagram'
+import { iconPaths } from '@/lib/icons'
 
-function FlagshipCard({ project }: { project: FlagshipProject }) {
+function ProjectLinks({ project }: { project: Project }) {
+  const links = [
+    project.githubUrl && !isPlaceholderLink(project.githubUrl)
+      ? { href: project.githubUrl, label: 'View source', icon: iconPaths.github }
+      : null,
+    project.demoUrl && !isPlaceholderLink(project.demoUrl)
+      ? { href: project.demoUrl, label: 'Live demo', icon: null }
+      : null,
+  ].filter(Boolean) as { href: string; label: string; icon: string | null }[]
+
+  if (links.length === 0) return null
+
   return (
-    <RevealOnScroll>
-      <article className="overflow-hidden rounded-3xl border border-accent/25 bg-gradient-to-b from-accent-soft to-surface">
-        <div className="p-8 sm:p-12">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-accent/40 bg-bg/40 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
-              Flagship Project
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-wider text-ink-faint">01</span>
-          </div>
-
-          <h3 className="mt-6 text-3xl font-bold tracking-tight text-ink sm:text-4xl">{project.title}</h3>
-          <p className="mt-2 text-lg text-ink-muted">{project.tagline}</p>
-          <p className="mt-6 max-w-3xl text-base leading-relaxed text-ink-muted">{project.story}</p>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {project.stack.map((s) => (
-              <Badge key={s}>{s}</Badge>
-            ))}
-          </div>
-
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-            {project.highlights.map((h) => (
-              <li key={h} className="flex items-start gap-3 text-sm leading-relaxed text-ink">
-                <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
-                {h}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="border-t border-border/60 bg-bg/40 p-8 sm:p-12">
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-ink-faint">
-            System architecture — tap a stage
-          </p>
-          <FlowDiagram stages={project.architecture} />
-        </div>
-      </article>
-    </RevealOnScroll>
+    <div className="mt-8 flex flex-wrap gap-4 border-t border-border pt-6">
+      {links.map((link) => (
+        <a
+          key={link.label}
+          href={link.href}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-accent"
+        >
+          {link.icon && (
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d={link.icon} />
+            </svg>
+          )}
+          {link.label} <span aria-hidden="true">→</span>
+        </a>
+      ))}
+    </div>
   )
 }
 
-function CaseStudyCard({ project }: { project: CaseStudyProject }) {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <RevealOnScroll>
-      <article className="overflow-hidden rounded-3xl border border-border bg-surface">
-        <div className="p-8 sm:p-12">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-border bg-bg/40 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-ink-muted">
-              Data Science Case Study
+      <article className="overflow-hidden rounded-2xl border border-border bg-surface">
+        <div className="p-7 sm:p-10">
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+            <span className="text-xs font-medium tabular-nums text-ink-faint">
+              {String(index + 1).padStart(2, '0')}
             </span>
-            <span className="text-xs font-semibold uppercase tracking-wider text-ink-faint">02</span>
+            <h3 className="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">{project.title}</h3>
+          </div>
+          <p className="mt-2 text-sm text-ink-faint">{project.kicker}</p>
+
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink-muted">{project.summary}</p>
+
+          <div className="mt-6 max-w-2xl">
+            <p className="text-xs font-medium uppercase tracking-[0.14em] text-accent">What I built</p>
+            <p className="mt-2 text-base leading-relaxed text-ink">{project.contribution}</p>
           </div>
 
-          <h3 className="mt-6 text-3xl font-bold tracking-tight text-ink sm:text-4xl">{project.title}</h3>
-          <p className="mt-2 text-lg text-ink-muted">{project.tagline}</p>
-
-          <div className="mt-6 max-w-3xl rounded-xl border border-border bg-bg/40 p-5">
-            <p className="text-xs font-semibold uppercase tracking-wider text-accent">Problem</p>
-            <p className="mt-2 text-base leading-relaxed text-ink">{project.problem}</p>
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {project.stack.map((s) => (
-              <Badge key={s}>{s}</Badge>
-            ))}
-          </div>
-
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+          <ul className="mt-7 grid gap-2.5 sm:grid-cols-2">
             {project.highlights.map((h) => (
-              <li key={h} className="flex items-start gap-3 text-sm leading-relaxed text-ink">
+              <li key={h} className="flex items-start gap-3 text-sm leading-relaxed text-ink-muted">
                 <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
                 {h}
               </li>
             ))}
           </ul>
 
-          <p className="mt-8 border-t border-border pt-6 text-sm leading-relaxed text-ink-muted">
-            <span className="font-semibold text-ink">Outcome — </span>
-            {project.outcome}
-          </p>
+          <div className="mt-7 flex flex-wrap gap-2">
+            {project.stack.map((s) => (
+              <Badge key={s}>{s}</Badge>
+            ))}
+          </div>
+
+          <ProjectLinks project={project} />
         </div>
 
-        <div className="border-t border-border bg-bg/30 p-8 sm:p-12">
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-ink-faint">
-            Pipeline — tap a stage
+        <div className="border-t border-border bg-bg/40 p-7 sm:p-10">
+          <p className="mb-6 text-xs font-medium uppercase tracking-[0.14em] text-ink-faint">
+            {project.diagramLabel} — select a stage
           </p>
-          <FlowDiagram stages={project.pipeline} />
+          <FlowDiagram stages={project.diagram} />
         </div>
-      </article>
-    </RevealOnScroll>
-  )
-}
-
-function PlaceholderCard() {
-  return (
-    <RevealOnScroll>
-      <article className="rounded-3xl border border-dashed border-border p-8 sm:p-12">
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-wider text-ink-faint">
-            Next Project
-          </span>
-          <span className="text-xs font-semibold uppercase tracking-wider text-ink-faint">03</span>
-        </div>
-        <h3 className="mt-6 text-2xl font-semibold text-ink-muted">Add your next project here</h3>
-        <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-faint">
-          Reserved slot — drop in a title, the problem, the solution, the stack, and links to GitHub and a live
-          demo when ready.
-        </p>
-        <dl className="mt-8 grid gap-4 text-sm sm:grid-cols-2">
-          {['Problem', 'Solution', 'Technologies', 'GitHub / Demo'].map((label) => (
-            <div key={label} className="rounded-xl border border-dashed border-border p-4">
-              <dt className="text-xs font-semibold uppercase tracking-wider text-ink-faint">{label}</dt>
-              <dd className="mt-2 text-ink-faint">—</dd>
-            </div>
-          ))}
-        </dl>
       </article>
     </RevealOnScroll>
   )
@@ -130,18 +92,16 @@ function PlaceholderCard() {
 export function Projects() {
   return (
     <SectionShell
-      id="work"
+      id="projects"
       label="Projects"
-      eyebrow="Selected work"
-      title="Projects built to be used, not just demoed."
-      intro="Each one is a small case study — the problem, the system, and what it produced."
+      eyebrow="Projects"
+      title="Things I've built."
+      intro="Two projects I'd want to talk through in an interview — what the problem was, and what I actually wrote."
     >
-      <div className="flex flex-col gap-10">
-        {projects.map((project) => {
-          if (project.kind === 'flagship') return <FlagshipCard key={project.id} project={project} />
-          if (project.kind === 'case-study') return <CaseStudyCard key={project.id} project={project} />
-          return <PlaceholderCard key={project.id} />
-        })}
+      <div className="flex flex-col gap-8">
+        {projects.map((project, i) => (
+          <ProjectCard key={project.id} project={project} index={i} />
+        ))}
       </div>
     </SectionShell>
   )

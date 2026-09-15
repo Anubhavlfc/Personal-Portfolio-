@@ -1,45 +1,38 @@
 export type SkillGroup = {
   id: string
-  index: string
   title: string
   items: string[]
 }
 
 export const skillGroups: SkillGroup[] = [
   {
-    id: 'programming',
-    index: '01',
-    title: 'Programming',
+    id: 'languages',
+    title: 'Languages',
     items: ['Python', 'SQL', 'R'],
   },
   {
-    id: 'data',
-    index: '02',
-    title: 'Data',
-    items: ['pandas', 'NumPy', 'tidyverse', 'ggplot2', 'caret'],
+    id: 'data-ml',
+    title: 'Data & Machine Learning',
+    items: ['pandas', 'NumPy', 'tidyverse', 'ggplot2', 'caret', 'Model training & evaluation'],
   },
   {
-    id: 'engineering',
-    index: '03',
-    title: 'Engineering',
-    items: ['ETL / ELT', 'Data transformation', 'Data validation', 'Data documentation', 'Git / GitHub', 'Azure'],
+    id: 'data-engineering',
+    title: 'Data Engineering',
+    items: ['ETL / ELT', 'Data transformation', 'Data validation', 'Pipeline documentation'],
   },
   {
-    id: 'ai-ml',
-    index: '04',
-    title: 'AI / Machine Learning',
-    items: ['Model training', 'Model evaluation', 'LLM integration', 'MCP', 'AI application development'],
+    id: 'ai',
+    title: 'AI Development',
+    items: ['LLM integration', 'MCP', 'AI application development'],
   },
   {
-    id: 'web-dev',
-    index: '05',
-    title: 'Web / Development',
-    items: ['WordPress', 'Front-end development', 'VS Code'],
+    id: 'web',
+    title: 'Web & Software',
+    items: ['WordPress', 'Front-end development'],
   },
   {
-    id: 'finance-analytics',
-    index: '06',
-    title: 'Finance / Analytics',
-    items: ['Financial analysis', 'Budget management', 'Forecasting', 'Excel', 'Financial reporting'],
+    id: 'tools',
+    title: 'Tools',
+    items: ['Git / GitHub', 'Azure', 'VS Code', 'Excel'],
   },
 ]

@@ -13,17 +13,17 @@ export function SocialLink({
   children: ReactNode
   className?: string
 }) {
-  const placeholder = isPlaceholderLink(href)
+  // Until a URL is filled in, render nothing rather than a dead "coming soon" link.
+  if (isPlaceholderLink(href)) return null
+
   return (
     <a
-      href={placeholder ? undefined : href}
-      target={placeholder ? undefined : '_blank'}
-      rel={placeholder ? undefined : 'noreferrer'}
-      aria-disabled={placeholder}
-      aria-label={placeholder ? `${label} (link coming soon)` : label}
-      title={placeholder ? `${label} — coming soon` : label}
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={label}
       className={cn(
-        'flex h-10 w-10 items-center justify-center rounded-full border border-border text-ink-muted transition-colors hover:border-accent/50 hover:text-accent aria-disabled:cursor-not-allowed aria-disabled:opacity-40',
+        'flex h-10 w-10 items-center justify-center rounded-full border border-border text-ink-muted transition-colors hover:border-accent/50 hover:text-accent',
         className,
       )}
     >
