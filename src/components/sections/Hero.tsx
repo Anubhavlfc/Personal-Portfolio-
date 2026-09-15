@@ -38,11 +38,7 @@ export function Hero() {
             {profile.headline}
           </motion.p>
 
-          <motion.p {...fade(0.24)} className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted">
-            {profile.subheadline}
-          </motion.p>
-
-          <motion.div {...fade(0.32)} className="mt-9 flex flex-wrap items-center gap-3">
+          <motion.div {...fade(0.24)} className="mt-8 flex flex-wrap items-center gap-3">
             <LinkButton href="#projects" variant="primary">
               View Projects
             </LinkButton>

@@ -2,8 +2,6 @@ export const profile = {
   name: 'Anubhav Adhikari',
   location: 'Caldwell, Idaho',
   headline: 'Computer Science and Finance student building software and data systems.',
-  subheadline:
-    'I work on data pipelines, AI-assisted applications, and web development. Currently looking for software engineering and data engineering internships.',
   email: 'anubhavadhikari0@gmail.com',
 
   githubUrl: 'https://github.com/Anubhavlfc',
