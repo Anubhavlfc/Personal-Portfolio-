@@ -33,6 +33,5 @@ All copy lives in `src/content/*.ts` — update those files to change what's on 
 
 - `src/content/profile.ts` — `linkedinUrl` (LinkedIn links stay hidden until set)
 - `src/content/projects.ts` — `caseStudy.reflection` ("What I learned"; the block is hidden while empty), and `githubUrl` / `demoUrl` on any project
-- `src/content/notes.ts` — engineering notes; the section shows an empty state until the first entry
 
 **Derived, not authored:** the Proof strip (`src/content/proof.ts`) and the skill-provenance links (`src/lib/skillUsage.ts`) are computed from the experience, project, and education content, so they can't drift from it.

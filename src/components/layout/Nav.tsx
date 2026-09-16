@@ -8,11 +8,10 @@ const links = [
   { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
   { id: 'about', label: 'About' },
-  { id: 'notes', label: 'Notes' },
 ]
 
 // Case study and capabilities highlight their neighbors rather than adding nav items.
-const sectionIds = ['projects', 'experience', 'case-study', 'capabilities', 'about', 'notes', 'contact']
+const sectionIds = ['projects', 'experience', 'case-study', 'capabilities', 'about', 'contact']
 const activeAlias: Record<string, string> = { 'case-study': 'projects', capabilities: 'about' }
 
 export function Nav() {
@@ -78,6 +77,14 @@ export function Nav() {
               )
             })}
           </nav>
+          <a
+            href={profile.resumeUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-md px-3 py-2 text-sm text-ink-muted transition-colors duration-300 hover:text-ink"
+          >
+            Résumé
+          </a>
           <a
             href="#contact"
             className="ml-2 rounded-full border border-border bg-surface/60 px-4 py-2 text-sm font-medium text-ink backdrop-blur-sm transition-[border-color,background-color,color] duration-300 hover:border-accent/50 hover:text-accent"

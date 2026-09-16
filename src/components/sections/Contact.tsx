@@ -47,7 +47,7 @@ export function Contact() {
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <RevealOnScroll className="lg:col-span-7">
-            <p className="label mb-5">07 — Contact</p>
+            <p className="label mb-5">06 — Contact</p>
             <h2 className="text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-6xl">
               Let's build something useful.
             </h2>

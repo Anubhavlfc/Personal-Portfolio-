@@ -10,11 +10,10 @@ import { Experience } from '@/components/sections/Experience'
 import { CaseStudy } from '@/components/sections/CaseStudy'
 import { Capabilities } from '@/components/sections/Capabilities'
 import { About } from '@/components/sections/About'
-import { Notes } from '@/components/sections/Notes'
 import { Contact } from '@/components/sections/Contact'
 
 // Order is the story: who → what he built → proof → where → how he thinks →
-// what he works with → who he is → what he's thinking about → reach out.
+// what he works with → who he is → reach out.
 function App() {
   return (
     <>
@@ -30,7 +29,6 @@ function App() {
         <CaseStudy />
         <Capabilities />
         <About />
-        <Notes />
         <Contact />
       </main>
       <Footer />
