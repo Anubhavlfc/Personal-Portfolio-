@@ -3,6 +3,7 @@ import { caseStudy, projects } from '@/content/projects'
 import { SectionShell } from '@/components/ui/SectionShell'
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 import { FlowDiagram } from '@/components/ui/FlowDiagram'
+import { iconPaths } from '@/lib/icons'
 
 const project = projects.find((p) => p.id === caseStudy.projectId)!
 
@@ -66,6 +67,25 @@ export function CaseStudy() {
           <p className="mt-8 hidden max-w-[180px] text-xs leading-relaxed text-ink-faint lg:block">
             Stack: {project.stack.join(', ')}
           </p>
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="group/src mt-5 inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-accent"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d={iconPaths.github} />
+              </svg>
+              View source
+              <span
+                aria-hidden="true"
+                className="inline-block transition-transform duration-300 ease-[var(--ease-out-soft)] group-hover/src:translate-x-1"
+              >
+                →
+              </span>
+            </a>
+          )}
         </nav>
 
         <div className="flex flex-col gap-12">

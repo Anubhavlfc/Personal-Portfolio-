@@ -36,6 +36,7 @@ export const projects: Project[] = [
       'Persistent memory so context carries across sessions',
     ],
     stack: ['Python', 'MCP', 'LLM Integration', 'Email API'],
+    githubUrl: 'https://github.com/Anubhavlfc/Project-GradApp-AI-Tracker',
     diagramLabel: 'How it works',
     diagram: [
       { label: 'User', detail: 'Asks about an application or requests an update.' },
