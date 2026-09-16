@@ -45,11 +45,11 @@ for (const entry of experience) {
 }
 
 for (const project of projects) {
-  register(project.id, { kind: 'project', title: project.title, context: 'Project' }, project.stack)
+  register(project.id, { kind: 'project', title: project.title, context: project.kicker.split(' · ')[0] }, project.stack)
 }
 
 for (const course of education.coursework) {
-  register(`course:${course}`, { kind: 'coursework', title: course, context: `Coursework · ${education.school}` })
+  register(`course:${course}`, { kind: 'coursework', title: course, context: education.school })
 }
 
 export function getSkillSources(skill: string): SkillSource[] {

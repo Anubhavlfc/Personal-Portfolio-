@@ -1,3 +1,5 @@
+import { asset } from '@/lib/utils'
+
 export const profile = {
   name: 'Anubhav Adhikari',
   location: 'Caldwell, Idaho',
@@ -12,12 +14,11 @@ export const profile = {
   // TODO: add the real LinkedIn URL — every LinkedIn link stays hidden until set.
   linkedinUrl: '',
 
-  // Drop the real file at /public/resume.pdf — no code change needed once it exists.
-  resumeUrl: '/resume.pdf',
+  resumeUrl: asset('resume.pdf'),
 
-  // Drop a photo at /public/portrait.jpg and set this to '/portrait.jpg'.
-  // Until then the About section renders a designed monogram instead.
-  portraitUrl: '',
+  // Drop a photo at /public/portrait.jpg. If the file is missing the About
+  // section falls back to a designed monogram, so this needs no toggling.
+  portraitUrl: asset('portrait.jpg'),
 
   about:
     'I’m a Computer Science and Finance student at The College of Idaho, graduating in May 2027. Most of my work sits between software and data — building ETL pipelines on a data engineering team, shipping front-end and architecture changes on my college’s WordPress infrastructure, and writing AI-assisted tools on my own time. The finance half of my degree is what got me interested in systems where data drives a decision, and that’s still the work I like most: taking messy inputs and getting them into a shape someone can actually use.',

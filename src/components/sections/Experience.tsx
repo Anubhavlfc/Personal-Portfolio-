@@ -19,7 +19,7 @@ function Entry({ entry, index, isLast }: { entry: ExperienceEntry; index: number
           <span
             className={cn(
               'absolute left-1/2 top-2 h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-bg transition-colors duration-300',
-              open ? 'bg-accent shadow-[0_0_12px_var(--color-accent)]' : 'bg-border',
+              open ? 'bg-accent shadow-[0_0_12px_var(--color-accent)]' : 'bg-ink-faint',
             )}
           />
           {!isLast && <span className="absolute left-1/2 top-6 bottom-[-2.5rem] w-px -translate-x-1/2 bg-border" />}

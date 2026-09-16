@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { profile, isPlaceholderLink } from '@/content/profile'
 import { education } from '@/content/education'
 import { leadership, financeSpotlight } from '@/content/leadership'
 import { SectionShell } from '@/components/ui/SectionShell'
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
+import { cn } from '@/lib/utils'
 
 const facts = [
   { label: 'Studying', value: education.degrees.join(' · ') },
@@ -18,7 +20,9 @@ const roles = [
 ]
 
 function Portrait() {
-  const hasPhoto = !isPlaceholderLink(profile.portraitUrl)
+  const [status, setStatus] = useState<'loading' | 'loaded' | 'missing'>(
+    isPlaceholderLink(profile.portraitUrl) ? 'missing' : 'loading',
+  )
   const initials = profile.name
     .split(' ')
     .map((n) => n[0])
@@ -26,22 +30,29 @@ function Portrait() {
 
   return (
     <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border bg-surface">
-      {hasPhoto ? (
+      {/* Monogram sits underneath and stays if the photo 404s, so a missing
+          file never shows a broken image. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 flex items-end bg-[radial-gradient(60%_50%_at_30%_20%,#d4a65722,transparent_70%),linear-gradient(160deg,#1b1a17,#0f0e0c)] p-6"
+      >
+        <span className="font-mono text-7xl font-medium tracking-tighter text-ink/90 sm:text-8xl">{initials}</span>
+      </div>
+
+      {status !== 'missing' && (
         <img
           src={profile.portraitUrl}
           alt={`Portrait of ${profile.name}`}
           loading="lazy"
-          className="h-full w-full object-cover"
+          onLoad={() => setStatus('loaded')}
+          onError={() => setStatus('missing')}
+          className={cn(
+            'absolute inset-0 h-full w-full object-cover object-[50%_30%] transition-opacity duration-700 ease-[var(--ease-out-soft)]',
+            status === 'loaded' ? 'opacity-100' : 'opacity-0',
+          )}
         />
-      ) : (
-        // Designed stand-in: reads as a deliberate monogram, not a missing image.
-        <div
-          aria-hidden="true"
-          className="flex h-full w-full items-end bg-[radial-gradient(60%_50%_at_30%_20%,#d4a65722,transparent_70%),linear-gradient(160deg,#1b1a17,#0f0e0c)] p-6"
-        >
-          <span className="font-mono text-7xl font-medium tracking-tighter text-ink/90 sm:text-8xl">{initials}</span>
-        </div>
       )}
+
       <span className="label absolute right-4 top-4 rounded-md border border-border bg-bg/70 px-2 py-1 backdrop-blur-sm">
         {profile.location}
       </span>

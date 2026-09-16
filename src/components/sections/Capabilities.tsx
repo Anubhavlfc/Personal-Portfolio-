@@ -124,7 +124,7 @@ export function Capabilities() {
               <div>
                 <p className="label">Used in</p>
                 <p className="mt-2 text-sm leading-relaxed text-ink-faint">
-                  Pick a skill on the left to see the internship, project, or course it came from.
+                  Pick any marked skill to see the internship, project, or course it came from.
                 </p>
               </div>
             )}
