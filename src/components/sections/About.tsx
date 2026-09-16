@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { profile, isPlaceholderLink } from '@/content/profile'
 import { education } from '@/content/education'
 import { leadership, financeSpotlight } from '@/content/leadership'
@@ -23,6 +23,13 @@ function Portrait() {
   const [status, setStatus] = useState<'loading' | 'loaded' | 'missing'>(
     isPlaceholderLink(profile.portraitUrl) ? 'missing' : 'loading',
   )
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  // A cached image can finish before React attaches onLoad; catch that case.
+  useEffect(() => {
+    const img = imgRef.current
+    if (img?.complete && img.naturalWidth > 0) setStatus('loaded')
+  }, [])
   const initials = profile.name
     .split(' ')
     .map((n) => n[0])
@@ -41,6 +48,7 @@ function Portrait() {
 
       {status !== 'missing' && (
         <img
+          ref={imgRef}
           src={profile.portraitUrl}
           alt={`Portrait of ${profile.name}`}
           loading="lazy"
