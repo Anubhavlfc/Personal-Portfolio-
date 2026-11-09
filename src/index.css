@@ -23,6 +23,22 @@
 
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 
+  @keyframes halo-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes halo-breathe {
+    0%,
+    100% {
+      opacity: 0.75;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
   @keyframes aurora {
     0%,
     100% {
@@ -158,6 +174,22 @@
   .spotlight:hover::before,
   .spotlight:focus-within::before {
     opacity: 1;
+  }
+
+  /* Warm atmosphere behind the hero sphere. Sized in closest-side units so
+     it tracks the sphere's radius (--sphere-r of the box's short side). */
+  .sphere-halo {
+    background:
+      radial-gradient(
+        circle closest-side at 50% var(--sphere-y, 50%),
+        #d4a65716 calc(var(--sphere-r, 46%) * 1.9),
+        #d4a6570a calc(var(--sphere-r, 46%) * 2.35),
+        transparent calc(var(--sphere-r, 46%) * 3.4)
+      );
+    /* Fades in alongside the sphere's own 2.6s intro, then breathes. */
+    animation:
+      halo-in 2.6s var(--ease-out-soft) both,
+      halo-breathe 9s ease-in-out 2.6s infinite;
   }
 
   .hairline {

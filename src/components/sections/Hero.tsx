@@ -7,6 +7,7 @@ import { LinkButton, ButtonArrow } from '@/components/ui/Button'
 import { SocialLink } from '@/components/ui/SocialLink'
 import { iconPaths } from '@/lib/icons'
 import { useSpotlight } from '@/hooks/useSpotlight'
+import { GeodesicSphere } from '@/components/ui/GeodesicSphere'
 
 const fade = (delay: number) => ({
   initial: { opacity: 0, y: 14 },
@@ -36,7 +37,7 @@ export function Hero() {
       ref={spotlightRef}
       id="top"
       aria-label="Introduction"
-      className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-24"
+      className="relative overflow-x-clip pt-32 pb-16 sm:pt-40 sm:pb-24 lg:flex lg:min-h-[min(100svh,62rem)] lg:flex-col lg:justify-center lg:pt-28 lg:pb-20"
     >
       <div
         aria-hidden="true"
@@ -47,7 +48,17 @@ export function Hero() {
         }}
       />
 
-      <div className="mx-auto grid max-w-6xl gap-14 px-6 sm:px-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-20">
+      {/* Signature visual. Sits between the backdrop and the content; bleeds off
+          the right edge on desktop. On small screens it rides behind the headline
+          and dissolves downward so the supporting copy stays clean. */}
+      <div
+        className="absolute right-[-40%] top-10 z-0 h-[min(108vw,27rem)] w-[min(108vw,27rem)] opacity-70 [mask-image:linear-gradient(to_bottom,#000_40%,transparent_76%)] sm:right-[-22%] sm:top-20 sm:[mask-image:linear-gradient(to_bottom,#000_34%,transparent_66%)] sm:h-[30rem] sm:w-[30rem] lg:bottom-6 lg:right-[-12%] lg:top-20 lg:h-auto lg:w-[60%] lg:opacity-100 lg:[mask-image:none]"
+      >
+        <GeodesicSphere className="h-full w-full" layout={{ radius: 0.46, offsetY: -0.02 }} />
+      </div>
+
+      {/* Pointer-transparent grid so the sphere stays reachable between columns. */}
+      <div className="pointer-events-none relative z-10 mx-auto grid w-full max-w-6xl gap-14 px-6 sm:px-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-20 [&>*]:pointer-events-auto">
         <div>
           <motion.p {...fade(0)} className="label mb-6">
             {profile.name}
