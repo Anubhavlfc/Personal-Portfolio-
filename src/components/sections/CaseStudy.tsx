@@ -4,6 +4,7 @@ import { SectionShell } from '@/components/ui/SectionShell'
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 import { FlowDiagram } from '@/components/ui/FlowDiagram'
 import { iconPaths } from '@/lib/icons'
+import { LorenzPlate } from '@/components/art/plates'
 
 const project = projects.find((p) => p.id === caseStudy.projectId)!
 
@@ -45,6 +46,7 @@ export function CaseStudy() {
       }
       tone="raised"
       headerClassName="max-w-3xl"
+      figure={<LorenzPlate />}
     >
       <div className="grid gap-12 lg:grid-cols-[200px_1fr] lg:gap-20">
         {/* Sticky in-section navigation */}

@@ -5,6 +5,7 @@ import { leadership, financeSpotlight } from '@/content/leadership'
 import { SectionShell } from '@/components/ui/SectionShell'
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 import { cn } from '@/lib/utils'
+import { TorusKnotPlate } from '@/components/art/plates'
 
 const facts = [
   { label: 'Studying', value: education.degrees.join(' · ') },
@@ -70,7 +71,15 @@ function Portrait() {
 
 export function About() {
   return (
-    <SectionShell id="about" label="About" number="05" eyebrow="About" title="A little more about me." tone="raised">
+    <SectionShell
+      id="about"
+      label="About"
+      number="05"
+      eyebrow="About"
+      title="A little more about me."
+      tone="raised"
+      figure={<TorusKnotPlate />}
+    >
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         <RevealOnScroll className="mx-auto w-full max-w-sm lg:col-span-4 lg:max-w-none">
           <Portrait />

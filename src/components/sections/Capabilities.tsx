@@ -1,12 +1,14 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { skillGroups } from '@/content/skills'
 import { getSkillSources, type SkillSource } from '@/lib/skillUsage'
 import { SectionShell } from '@/components/ui/SectionShell'
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 import { cn } from '@/lib/utils'
+import { ConstellationPlate } from '@/components/art/plates'
 
-type Active = { skill: string; sources: SkillSource[] } | null
+/** `from: 'figure'` marks a selection made by hovering the constellation, so leaving it clears only that. */
+type Active = { skill: string; sources: SkillSource[]; from?: 'figure' } | null
 
 const kindLabel: Record<SkillSource['kind'], string> = {
   experience: 'Internship',
@@ -16,6 +18,17 @@ const kindLabel: Record<SkillSource['kind'], string> = {
 
 export function Capabilities() {
   const [active, setActive] = useState<Active>(null)
+
+  // The constellation and the list share one selection.
+  const hoverFromFigure = useCallback((skill: string | null) => {
+    setActive((current) => {
+      if (skill) return current && !current.from ? current : { skill, sources: getSkillSources(skill), from: 'figure' }
+      return current?.from === 'figure' ? null : current
+    })
+  }, [])
+  const selectFromFigure = useCallback((skill: string) => {
+    setActive((current) => (current?.skill === skill && !current.from ? null : { skill, sources: getSkillSources(skill) }))
+  }, [])
 
   const groups = useMemo(
     () =>
@@ -34,6 +47,7 @@ export function Capabilities() {
       eyebrow="Capabilities"
       title="What I work with, and where it came from."
       intro="Anything with a marker traces back to an internship, a project, or a course — hover or tap to see which."
+      figure={<ConstellationPlate active={active?.skill ?? null} onHover={hoverFromFigure} onSelect={selectFromFigure} />}
     >
       <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:gap-16">
         <RevealOnScroll>

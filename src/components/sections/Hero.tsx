@@ -8,6 +8,7 @@ import { SocialLink } from '@/components/ui/SocialLink'
 import { iconPaths } from '@/lib/icons'
 import { useSpotlight } from '@/hooks/useSpotlight'
 import { GeodesicSphere } from '@/components/ui/GeodesicSphere'
+import { SphereCaption } from '@/components/art/plates'
 
 const fade = (delay: number) => ({
   initial: { opacity: 0, y: 14 },
@@ -56,6 +57,8 @@ export function Hero() {
       >
         <GeodesicSphere className="h-full w-full" layout={{ radius: 0.46, offsetY: -0.02 }} />
       </div>
+
+      <SphereCaption className="pointer-events-none absolute bottom-6 right-6 z-10 hidden rounded-lg border border-border/60 bg-bg/70 px-3.5 py-2.5 backdrop-blur-md lg:block" />
 
       {/* Pointer-transparent grid so the sphere stays reachable between columns. */}
       <div className="pointer-events-none relative z-10 mx-auto grid w-full max-w-6xl gap-14 px-6 sm:px-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-20 [&>*]:pointer-events-auto">

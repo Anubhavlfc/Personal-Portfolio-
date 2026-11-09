@@ -2,6 +2,7 @@ import { profile, isPlaceholderLink } from '@/content/profile'
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 import { LinkButton, ButtonArrow } from '@/components/ui/Button'
 import { iconPaths } from '@/lib/icons'
+import { ParticleFieldPlate } from '@/components/art/plates'
 
 type Method = {
   label: string
@@ -44,7 +45,8 @@ export function Contact() {
       aria-label="Contact"
       className="relative scroll-mt-20 py-24 before:pointer-events-none before:absolute before:inset-x-0 before:bottom-0 before:-z-10 before:h-[28rem] before:bg-[radial-gradient(44rem_20rem_at_50%_100%,#d4a65714,transparent_70%)] sm:py-32"
     >
-      <div className="mx-auto max-w-6xl px-6 sm:px-8">
+      <ParticleFieldPlate />
+      <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <RevealOnScroll className="lg:col-span-7">
             <p className="label mb-5">06 — Contact</p>

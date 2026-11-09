@@ -192,6 +192,14 @@
       halo-breathe 9s ease-in-out 2.6s infinite;
   }
 
+  /* Soft warm pool behind each figure — the same atmosphere as the sphere's halo. */
+  .art-halo {
+    background: radial-gradient(circle closest-side at 50% 50%, #d4a65710, #d4a65706 55%, transparent 100%);
+    animation:
+      halo-in 2.6s var(--ease-out-soft) both,
+      halo-breathe 9s ease-in-out 2.6s infinite;
+  }
+
   .hairline {
     background-image: linear-gradient(90deg, transparent, var(--color-border) 20%, var(--color-border) 80%, transparent);
   }

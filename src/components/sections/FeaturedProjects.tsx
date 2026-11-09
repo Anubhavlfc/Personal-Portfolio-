@@ -3,6 +3,7 @@ import { isPlaceholderLink } from '@/content/profile'
 import { SectionShell } from '@/components/ui/SectionShell'
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 import { FlowDiagram } from '@/components/ui/FlowDiagram'
+import { TesseractPlate } from '@/components/art/plates'
 import { iconPaths } from '@/lib/icons'
 import { useSpotlight } from '@/hooks/useSpotlight'
 import { cn } from '@/lib/utils'
@@ -155,6 +156,7 @@ export function FeaturedProjects() {
       eyebrow="Featured work"
       title="Things I've actually built."
       intro="Each one is the problem, what I wrote to solve it, and why it was worth solving."
+      figure={<TesseractPlate />}
     >
       <div className="flex flex-col gap-8">
         {projects.map((project, i) => (

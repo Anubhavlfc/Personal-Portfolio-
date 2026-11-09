@@ -4,6 +4,7 @@ import { experience, type ExperienceEntry } from '@/content/experience'
 import { SectionShell } from '@/components/ui/SectionShell'
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 import { cn } from '@/lib/utils'
+import { MobiusPlate } from '@/components/art/plates'
 
 function Entry({ entry, index, isLast }: { entry: ExperienceEntry; index: number; isLast: boolean }) {
   const [open, setOpen] = useState(index === 0)
@@ -96,6 +97,7 @@ export function Experience() {
       eyebrow="Experience"
       title="Where the work has been."
       intro="Two internships so far — one on the data side, one on the software side."
+      figure={<MobiusPlate />}
     >
       <ol className="border-t border-border pt-10">
         {experience.map((entry, i) => (
