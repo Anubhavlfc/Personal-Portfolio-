@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import { ArtCanvas } from './ArtCanvas'
 
 type FigureProps<P> = {
-  /** Plate number in the site-wide sequence; the hero sphere is 1. */
+  /** Plate number in the site-wide sequence. */
   n: number
   title: string
   /** The mathematics, stated plainly. */

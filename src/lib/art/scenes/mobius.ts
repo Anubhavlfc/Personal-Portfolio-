@@ -4,7 +4,7 @@ import { Orbit } from '../orbit'
 import type { Input, Scene, SceneEnv } from '../scene'
 
 /**
- * Fig. 3 — Möbius strip.
+ * Fig. 2 — Möbius strip.
  *
  * Temperament: calm and continuous. A light runs the single edge (it takes
  * two laps to come home); motes drift along the surface and come back on

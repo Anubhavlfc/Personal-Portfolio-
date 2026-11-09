@@ -4,7 +4,7 @@ import { Orbit } from '../orbit'
 import type { Input, Scene, SceneEnv } from '../scene'
 
 /**
- * Fig. 2 — Tesseract.
+ * Fig. 1 — Tesseract.
  *
  * Temperament: architectural. It moves in deliberate quarter turns through
  * the XW, YW and ZW planes — each one maps the hypercube onto itself, so the

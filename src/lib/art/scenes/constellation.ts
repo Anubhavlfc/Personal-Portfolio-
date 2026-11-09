@@ -5,7 +5,7 @@ import { buildSkillGraph, type GraphNode } from '../geometry/constellation'
 import type { Input, Scene, SceneEnv } from '../scene'
 
 /**
- * Fig. 5 — Constellation.
+ * Fig. 4 — Constellation.
  *
  * Temperament: attentive. This is the site's own data — every skill linked
  * to the internship, project or course the content says it came from. It

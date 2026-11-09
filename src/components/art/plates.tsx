@@ -9,13 +9,14 @@ import { Figure, FigureCaption } from './Figure'
  * sections import a plate rather than wiring scenes themselves. Captions
  * state only the mathematics — nothing here makes a claim about the work.
  *
- *   Fig. 1  Geodesic sphere   hero
- *   Fig. 2  Tesseract         projects
- *   Fig. 3  Möbius strip      experience
- *   Fig. 4  Lorenz attractor  case study
- *   Fig. 5  Constellation     capabilities
- *   Fig. 6  Torus knot        about
- *   Fig. 7  Particle field    contact
+ *   Fig. 1  Tesseract         projects
+ *   Fig. 2  Möbius strip      experience
+ *   Fig. 3  Lorenz attractor  case study
+ *   Fig. 4  Constellation     capabilities
+ *   Fig. 5  Torus knot        about
+ *   Fig. 6  Particle field    contact
+ *
+ * The hero's geodesic sphere is the uncaptioned frontispiece.
  */
 
 const stage = 'aspect-square w-full'
@@ -29,24 +30,10 @@ const loadConstellation = () => import('@/lib/art/scenes/constellation')
 const loadTorusKnot = () => import('@/lib/art/scenes/torusKnot')
 const loadParticles = () => import('@/lib/art/scenes/particleField')
 
-export function SphereCaption({ className }: { className?: string }) {
-  return (
-    <figure className={className}>
-      <FigureCaption
-        n={1}
-        title="Geodesic sphere"
-        meta="Icosahedron subdivided and projected onto the sphere · 10n² + 2 vertices"
-        hint="Drag to spin · click to send a ripple"
-        className="items-end text-right"
-      />
-    </figure>
-  )
-}
-
 export function TesseractPlate() {
   return (
     <Figure
-      n={2}
+      n={1}
       title="Tesseract"
       meta="{±1}⁴ · 16 vertices · 32 edges, turning a quarter at a time through four dimensions"
       hint="Hover to hold · click to change projection · drag to turn"
@@ -60,7 +47,7 @@ export function TesseractPlate() {
 export function MobiusPlate() {
   return (
     <Figure
-      n={3}
+      n={2}
       title="Möbius strip"
       meta="P(u + 2π, v) = P(u, −v) · one surface, one edge — the light needs two laps to come home"
       hint="Hover to warm the band · click to send a wave · drag to turn"
@@ -74,7 +61,7 @@ export function MobiusPlate() {
 export function LorenzPlate() {
   return (
     <Figure
-      n={4}
+      n={3}
       title="Lorenz attractor"
       meta="σ = 10 · ρ = 28 · β = 8⁄3 · RK4 · two trajectories that start 10⁻⁵ apart"
       hint="Click to release another 10⁻⁵ away · drag to turn"
@@ -106,7 +93,7 @@ export function ConstellationPlate({ active, onHover, onSelect }: ConstellationP
   )
   return (
     <Figure
-      n={5}
+      n={4}
       title="Constellation"
       meta="Every skill on this page linked to where it was used — drawn live from the site’s own content"
       hint="Hover a point · click a ring to jump there · drag to turn"
@@ -121,7 +108,7 @@ export function ConstellationPlate({ active, onHover, onSelect }: ConstellationP
 export function TorusKnotPlate() {
   return (
     <Figure
-      n={6}
+      n={5}
       title="Torus knot"
       meta="(2, 5), the cinquefoil — twice around the axis, five times through the hole, one unbroken line"
       hint="Hover to set it moving · click to pluck · drag to turn"
@@ -143,7 +130,7 @@ export function ParticleFieldPlate() {
         <ArtCanvas load={loadParticles} interaction="section" />
       </div>
       <figure className="pointer-events-none absolute bottom-6 right-8 z-10 hidden lg:block">
-        <FigureCaption n={7} title="Particle field" meta="Motes on a slow sine flow field" className="items-end text-right" />
+        <FigureCaption n={6} title="Particle field" meta="Motes on a slow sine flow field" className="items-end text-right" />
       </figure>
     </>
   )

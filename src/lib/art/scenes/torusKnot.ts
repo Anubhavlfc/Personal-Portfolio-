@@ -4,7 +4,7 @@ import { Orbit } from '../orbit'
 import type { Input, Scene, SceneEnv } from '../scene'
 
 /**
- * Fig. 6 — Torus knot, (2, 5): the cinquefoil.
+ * Fig. 5 — Torus knot, (2, 5): the cinquefoil.
  *
  * Temperament: fluid. It follows the pointer on an under-damped spring, so
  * it overshoots a little and settles, and it turns on more than one axis.

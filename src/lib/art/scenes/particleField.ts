@@ -2,7 +2,7 @@ import { clamp, damp, rgba, mix, seeded, smooth } from '../core'
 import type { Input, Scene, SceneEnv } from '../scene'
 
 /**
- * Fig. 7 — Particle field.
+ * Fig. 6 — Particle field.
  *
  * Temperament: atmospheric. A slab of motes at different depths drifting on
  * a slow sine flow field, linking briefly with whatever is near. The

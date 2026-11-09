@@ -3,7 +3,7 @@ import { FIXED_POINTS, lorenzStep, toFigure } from '../geometry/lorenz'
 import type { Input, Scene, SceneEnv } from '../scene'
 
 /**
- * Fig. 4 — Lorenz attractor.
+ * Fig. 3 — Lorenz attractor.
  *
  * Temperament: precise, then chaotic. Two trajectories start 10⁻⁵ apart and
  * draw the same path — until they don't. Rotation is slow and level about

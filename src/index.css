@@ -23,6 +23,16 @@
 
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 
+  @keyframes nudge-x {
+    0%,
+    100% {
+      transform: translateX(-2px);
+    }
+    50% {
+      transform: translateX(2px);
+    }
+  }
+
   @keyframes halo-in {
     from {
       opacity: 0;
@@ -198,6 +208,14 @@
     animation:
       halo-in 2.6s var(--ease-out-soft) both,
       halo-breathe 9s ease-in-out 2.6s infinite;
+  }
+
+  /* A background-coloured halo for text that sits over line work. */
+  .text-halo {
+    text-shadow:
+      0 0 14px var(--color-bg),
+      0 0 6px var(--color-bg),
+      0 0 2px var(--color-bg);
   }
 
   .hairline {
