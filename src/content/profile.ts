@@ -4,9 +4,9 @@ export const profile = {
   name: 'Anubhav Adhikari',
   location: 'Caldwell, Idaho',
 
-  positioning: 'Building software that makes messy data useful.',
+  positioning: 'Building software. Connecting data. Exploring AI.',
   supporting:
-    'Computer Science and Finance student at The College of Idaho. Lately that’s meant ETL pipelines on an enterprise data team, an MCP tool layer for an AI assistant, and the front end and architecture of my college’s WordPress site.',
+    'I’m Anubhav, a Computer Science and Finance student at The College of Idaho. I build web applications, data pipelines, and AI tools—with an interest in how they work together to solve practical problems.',
 
   email: 'anubhavadhikari0@gmail.com',
   githubUrl: 'https://github.com/Anubhavlfc',
